@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Custom clip paths for diagonal split */
+.clip-dark-zone {
+  clip-path: polygon(0 0, 68% 0, 42% 100%, 0 100%);
+}
+
+.clip-light-zone {
+  clip-path: polygon(68% 0, 100% 0, 100% 100%, 42% 100%);
+}
+
+/* Subtle grain texture overlay */
+.grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+}
+
+/* Glow effect for title */
+.title-glow {
+  text-shadow: 0 0 40px rgba(251, 191, 36, 0.15), 0 2px 20px rgba(0,0,0,0.5);
+}
+
+/* Mobile layout: diagonal split with dark on top, light on bottom */
+@media (max-width: 767px) {
+  .clip-dark-zone {
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 70%);
+  }
+  .clip-light-zone {
+    clip-path: polygon(0 70%, 100% 50%, 100% 100%, 0 100%);
+  }
+}
