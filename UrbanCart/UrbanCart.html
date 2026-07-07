@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanCart - Modern Online Shopping</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+    <style>
+        :root {
+            --primary: #2a2d3b; /* Dark slate */
+            --secondary: #f8f9fa; /* Light gray */
+            --accent: #ff6b6b; /* Coral red */
+            --highlight: #4ecdc4; /* Teal */
+            --dark: #212529;
+            --light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--primary);
+            box-shadow: var(--shadow);
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 10px 0;
+            background-color: rgba(42, 45, 59, 0.95);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--light);
+        }
+
+        .navbar-brand span {
+            color: var(--accent);
+        }
+
+        .nav-link {
+            color: var(--light);
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            bottom: 0;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .cart-btn {
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50px;
+            padding: 8px 20px;
+            transition: var(--transition);
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #3a3f58 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80') center/cover;
+            opacity: 0.15;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s 0.2s both;
+        }
+
+        .hero-btn {
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            animation: fadeInUp 1s 0.4s both;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Categories */
+        .section-title {
+            position: relative;
+            margin-bottom: 50px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            animation: fadeIn 1s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, #3a3f58 100%);
+            border-radius: 50%;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .category-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        /* Featured Products */
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .product-body {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .product-price {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .product-rating {
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--accent);
+        }
+
+        /* About Section */
+        .about-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #3a3f58 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80') center/cover;
+            opacity: 0.1;
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-img {
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            animation: fadeInLeft 1s;
+        }
+
+        .about-text {
+            animation: fadeInRight 1s;
+        }
+
+        /* Stats */
+        .stats-section {
+            padding: 80px 0;
+            background-color: var(--secondary);
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 30px;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .stat-title {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Testimonials */
+        .testimonial-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 100px 0;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-weight: 600;
+        }
+
+        .author-title {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            padding: 80px 0;
+            background-color: var(--secondary);
+        }
+
+        .newsletter-box {
+            background: linear-gradient(135deg, var(--primary) 0%, #3a3f58 100%);
+            border-radius: 15px;
+            padding: 50px;
+            color: white;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80') center/cover;
+            opacity: 0.1;
+        }
+
+        .newsletter-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter-input {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .newsletter-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 80px 0 0;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-logo span {
+            color: var(--accent);
+        }
+
+        .footer-about {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .footer-title {
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .footer-contact-icon {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 80px 0;
+                text-align: center;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                text-align: center;
+            }
+            
+            .about-text {
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .newsletter-box {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Urban<span>Cart</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars" style="color: white;"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#categories">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Reviews</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="nav-link cart-btn" href="#">
+                            <lord-icon
+                                src="https://cdn.lordicon.com/slkvcfos.json"
+                                trigger="hover"
+                                colors="primary:#ffffff,secondary:#ffffff"
+                                style="width:20px;height:20px">
+                            </lord-icon>
+                            Cart (3)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="hero-title">Discover the Best Products Online</h1>
+                    <p class="hero-subtitle">Shop from thousands of products with fast delivery and great prices</p>
+                    <a href="#products" class="btn hero-btn">Shop Now</a>
+                </div>
+                <div class="col-lg-6">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/uetqnvvg.json"
+                        trigger="loop"
+                        colors="primary:#ff6b6b,secondary:#4ecdc4"
+                        style="width:100%;height:100%">
+                    </lord-icon>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title animate__animated animate__fadeIn">Our Categories</h2>
+            <div class="row">
+                <div class="col-md-3 col-6 animate__animated animate__fadeInUp">
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <lord-icon
+                                src="https://cdn.lordicon.com/itmmouju.json"
+                                trigger="hover"
+                                colors="primary:#ffffff,secondary:#ffffff"
+                                style="width:40px;height:40px">
+                            </lord-icon>
+                        </div>
+                        <h3 class="category-title">Grocery</h3>
+                        <p>Fresh groceries for your home</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 animate__animated animate__fadeInUp delay-1">
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <lord-icon
+                                src="https://cdn.lordicon.com/coqbeapw.json"
+                                trigger="hover"
+                                colors="primary:#ffffff,secondary:#ffffff"
+                                style="width:40px;height:40px">
+                            </lord-icon>
+                        </div>
+                        <h3 class="category-title">Meat</h3>
+                        <p>Premium quality meats</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 animate__animated animate__fadeInUp delay-2">
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <lord-icon
+                                src="https://cdn.lordicon.com/jpdtnwas.json"
+                                trigger="hover"
+                                colors="primary:#ffffff,secondary:#ffffff"
+                                style="width:40px;height:40px">
+                            </lord-icon>
+                        </div>
+                        <h3 class="category-title">Snacks</h3>
+                        <p>Delicious snacks for anytime</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 animate__animated animate__fadeInUp delay-3">
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <lord-icon
+                                src="https://cdn.lordicon.com/kdruzgxz.json"
+                                trigger="hover"
+                                colors="primary:#ffffff,secondary:#ffffff"
+                                style="width:40px;height:40px">
+                            </lord-icon>
+                        </div>
+                        <h3 class="category-title">Drinks</h3>
+                        <p>Refreshing beverages</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="products" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center section-title animate__animated animate__fadeIn">Featured Products</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 animate__animated animate__fadeIn">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fresh Vegetables" class="product-img">
+                        <div class="product-body">
+                            <h3 class="product-title">Fresh Vegetables Pack</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="ms-2">(48)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="product-price">$12.99</span>
+                                <button class="add-to-cart">
+                                    <lord-icon
+                                        src="https://cdn.lordicon.com/slkvcfos.json"
+                                        trigger="hover"
+                                        colors="primary:#ffffff,secondary:#ffffff"
+                                        style="width:20px;height:20px">
+                                    </lord-icon>
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 animate__animated animate__fadeIn delay-1">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1518492104633-130d0cc84637?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Premium Beef" class="product-img">
+                        <div class="product-body">
+                            <h3 class="product-title">Premium Beef Steak</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ms-2">(36)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="product-price">$24.99</span>
+                                <button class="add-to-cart">
+                                    <lord-icon
+                                        src="https://cdn.lordicon.com/slkvcfos.json"
+                                        trigger="hover"
+                                        colors="primary:#ffffff,secondary:#ffffff"
+                                        style="width:20px;height:20px">
+                                    </lord-icon>
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 animate__animated animate__fadeIn delay-2">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Snack Box" class="product-img">
+                        <div class="product-body">
+                            <h3 class="product-title">Deluxe Snack Box</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ms-2">(112)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="product-price">$15.49</span>
+                                <button class="add-to-cart">
+                                    <lord-icon
+                                        src="https://cdn.lordicon.com/slkvcfos.json"
+                                        trigger="hover"
+                                        colors="primary:#ffffff,secondary:#ffffff"
+                                        style="width:20px;height:20px">
+                                    </lord-icon>
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 animate__animated animate__fadeIn delay-3">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1554866585-cd94860890b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Soft Drinks" class="product-img">
+                        <div class="product-body">
+                            <h3 class="product-title">Assorted Soft Drinks</h3>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="ms-2">(87)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="product-price">$8.99</span>
+                                <button class="add-to-cart">
+                                    <lord-icon
+                                        src="https://cdn.lordicon.com/slkvcfos.json"
+                                        trigger="hover"
+                                        colors="primary:#ffffff,secondary:#ffffff"
+                                        style="width:20px;height:20px">
+                                    </lord-icon>
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-outline-dark btn-lg">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="About Us" class="img-fluid about-img">
+                </div>
+                <div class="col-lg-6 about-text">
+                    <h2 class="text-white mb-4">About UrbanCart</h2>
+                    <p class="text-white mb-4">UrbanCart is your premier online shopping destination, offering a wide range of high-quality products at competitive prices. Our mission is to provide a seamless shopping experience with fast delivery and exceptional customer service.</p>
+                    <p class="text-white mb-4">We source our products from trusted suppliers and local producers to ensure freshness and quality. Our team is dedicated to making your online shopping experience enjoyable and hassle-free.</p>
+                    <div class="row mt-5">
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/yyecauzv.json"
+                                    trigger="hover"
+                                    colors="primary:#ff6b6b,secondary:#4ecdc4"
+                                    style="width:30px;height:30px">
+                                </lord-icon>
+                                <span class="ms-3 text-white">Secure Payments</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/lfqzieho.json"
+                                    trigger="hover"
+                                    colors="primary:#ff6b6b"
+                                    style="width:30px;height:30px">
+                                </lord-icon>
+                                <span class="ms-3 text-white">Quality Guarantee</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/mdgrhyca.json"
+                                    trigger="morph"
+                                    colors="primary:#ff6b6b,secondary:#4ecdc4"
+                                    style="width:30px;height:30px">
+                                </lord-icon>
+                                <span class="ms-3 text-white">Customer Ratings</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/zpxybbhl.json"
+                                    trigger="hover"
+                                    colors="primary:#ff6b6b,secondary:#4ecdc4"
+                                    style="width:30px;height:30px">
+                                </lord-icon>
+                                <span class="ms-3 text-white">Verified Reviews</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-number">10,000+</div>
+                        <div class="stat-title">Happy Customers</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-number">2,500+</div>
+                        <div class="stat-title">Products Available</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-title">Positive Feedback</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-title">Customer Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonial-section">
+        <div class="container">
+            <h2 class="text-center section-title text-white">What Our Customers Say</h2>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"UrbanCart has completely changed my shopping experience. The quality of products and fast delivery is unmatched!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah J." class="author-img">
+                            <div>
+                                <div class="author-name">Sarah J.</div>
+                                <div class="author-title">Regular Customer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"I love the variety of products available. The meat section is my favorite - always fresh and well-packaged."</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T." class="author-img">
+                            <div>
+                                <div class="author-name">Michael T.</div>
+                                <div class="author-title">Food Blogger</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"The customer service is exceptional. They resolved my delivery issue within hours. Highly recommended!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Emma R." class="author-img">
+                            <div>
+                                <div class="author-name">Emma R.</div>
+                                <div class="author-title">First-time Buyer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-box">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 newsletter-content mb-4 mb-lg-0">
+                        <h2 class="mb-3">Subscribe to Our Newsletter</h2>
+                        <p>Get the latest updates, special offers and discount codes directly to your inbox.</p>
+                    </div>
+                    <div class="col-lg-6 newsletter-content">
+                        <form>
+                            <input type="email" class="form-control newsletter-input mb-3" placeholder="Your email address">
+                            <button type="submit" class="btn newsletter-btn">Subscribe Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <a href="#" class="footer-logo">Urban<span>Cart</span></a>
+                    <p class="footer-about">Your premier online shopping destination for quality groceries, meats, snacks, and beverages. Fast delivery and exceptional service.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#testimonials">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <h3 class="footer-title">Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Grocery</a></li>
+                        <li><a href="#">Meat</a></li>
+                        <li><a href="#">Snacks</a></li>
+                        <li><a href="#">Drinks</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h3 class="footer-title">Contact Us</h3>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+                        <span>123 Shopping Street, Urban City</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone-alt footer-contact-icon"></i>
+                        <span>+1 234 567 890</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope footer-contact-icon"></i>
+                        <span>info@urbancart.com</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-clock footer-contact-icon"></i>
+                        <span>Mon-Sun: 8:00 - 20:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p class="mb-0">&copy; 2023 UrbanCart. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <a href="#" class="text-white me-3">Privacy Policy</a>
+                        <a href="#" class="text-white">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 50) {
+                $('.navbar').addClass('scrolled');
+            } else {
+                $('.navbar').removeClass('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        $('a[href*="#"]').on('click', function(e) {
+            e.preventDefault();
+            $('html, body').animate(
+                {
+                    scrollTop: $($(this).attr('href')).offset().top - 70,
+                },
+                500,
+                'linear'
+            );
+        });
+
+        // Animation on scroll
+        $(document).ready(function() {
+            $('.animate__animated').each(function() {
+                var elementPos = $(this).offset().top;
+                var windowHeight = $(window).height();
+                var scrollPos = $(window).scrollTop();
+                
+                if (elementPos < scrollPos + windowHeight - 100) {
+                    $(this).addClass($(this).data('animate'));
+                }
+            });
+
+            $(window).scroll(function() {
+                $('.animate__animated').each(function() {
+                    var elementPos = $(this).offset().top;
+                    var windowHeight = $(window).height();
+                    var scrollPos = $(window).scrollTop();
+                    
+                    if (elementPos < scrollPos + windowHeight - 100) {
+                        $(this).addClass($(this).data('animate'));
+                    }
+                });
+            });
+        });
+
+        // Add to cart animation
+        $('.add-to-cart').click(function() {
+            var btn = $(this);
+            btn.html('<i class="fas fa-check"></i> Added');
+            btn.css('background-color', '#4ecdc4');
+            
+            setTimeout(function() {
+                btn.html('<lord-icon src="https://cdn.lordicon.com/slkvcfos.json" trigger="hover" colors="primary:#ffffff,secondary:#ffffff" style="width:20px;height:20px"></lord-icon> Add');
+                btn.css('background-color', '#2a2d3b');
+            }, 2000);
+            
+            // Update cart count
+            var cartCount = parseInt($('.cart-btn').text().match(/\d+/)[0]);
+            $('.cart-btn').text('Cart (' + (cartCount + 1) + ')');
+            
+            // Floating animation
+            $('<div class="floating-item">+1</div>').css({
+                'position': 'fixed',
+                'color': '#ff6b6b',
+                'font-weight': 'bold',
+                'font-size': '20px',
+                'z-index': '9999',
+                'left': btn.offset().left + btn.width()/2,
+                'top': btn.offset().top
+            }).appendTo('body').animate({
+                'top': btn.offset().top - 100,
+                'opacity': 0
+            }, 1000, function() {
+                $(this).remove();
+            });
+        });
+    </script>
+</body>
+</html>
