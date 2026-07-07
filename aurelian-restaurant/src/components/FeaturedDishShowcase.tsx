@@ -20,19 +20,20 @@ interface Dish {
 
 const dishes: Dish[] = [
   {
-    id: 1,
-    name: 'Wagyu Beef Tenderloin',
-    price: '$185',
-    description:
-      'A5 Japanese Wagyu, seared to perfection and served with truffle jus, roasted bone marrow, and seasonal microgreens. Each bite delivers an unmatched depth of flavor and buttery tenderness that defines our culinary philosophy.',
-    ingredients: ['A5 Wagyu Beef', 'Black Truffle', 'Bone Marrow', 'Microgreens', 'Red Wine Jus'],
-    calories: '680 kcal',
-    preparation: 'Sous-vide 48h, pan-seared, rested',
-    portions: ['8oz', '12oz', '16oz'],
-    rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1546833998-877b37c2e5c6?w=800&q=80',
-    chefRecommended: true,
-  },
+  id: 1,
+  name: 'Wagyu Beef Tenderloin',
+  price: '$185',
+  description:
+    'A5 Japanese Wagyu, seared to perfection and served with truffle jus, roasted bone marrow, and seasonal microgreens. Each bite delivers an unmatched depth of flavor and buttery tenderness that defines our culinary philosophy.',
+  ingredients: ['A5 Wagyu Beef', 'Black Truffle', 'Bone Marrow', 'Microgreens', 'Red Wine Jus'],
+  calories: '680 kcal',
+  preparation: 'Sous-vide 48h, pan-seared, rested',
+  portions: ['8oz', '12oz', '16oz'],
+  rating: 4.9,
+  image:
+    'https://scontent.fkhi20-1.fna.fbcdn.net/v/t39.30808-6/532910789_739570835722588_317625551371601039_n.jpg?stp=dst-jpg_tt6&cstp=mx1024x1024&ctp=s1024x1024&_nc_cat=109&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=7uhH3wNZJMsQ7kNvwHK4MvJ&_nc_oc=Adp2ZU41OAB6FrfEhXnprszVm3Y74ASw93CCZWKBry3SAm0rNtt1QnqlUwaGgxiM3EA&_nc_zt=23&_nc_ht=scontent.fkhi20-1.fna&_nc_gid=tzqhTBCPPdEVSspMLc0img&_nc_ss=7b2a8&oh=00_AQDTAkJ-ErCyhLsvtNXzKCL7s22cPinQoYuogxuvRtkNTA&oe=6A52ECC8',
+  chefRecommended: true,
+},
   {
     id: 2,
     name: 'Lobster Thermidor',

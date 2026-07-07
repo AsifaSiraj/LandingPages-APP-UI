@@ -15,7 +15,7 @@ const signatureDishes = [
     name: 'Seared Foie Gras',
     description: 'Pan-seared duck foie gras with fig compote, brioche toast, and port wine reduction.',
     price: '$110',
-    image: 'https://images.unsplash.com/photo-1432139509613-5c4255a1d0a7?w=600&q=80',
+    image: 'images/seared-foie-gras.png',
   },
   {
     name: 'Caviar Service',
@@ -27,7 +27,7 @@ const signatureDishes = [
     name: 'Duck Confit',
     description: 'Slow-cooked duck leg confit with cherry gastrique, roasted root vegetables, and herb salad.',
     price: '$85',
-    image: 'https://images.unsplash.com/photo-1580554530778-ca36943571b4?w=600&q=80',
+    image: 'images/duck-confit.png',
   },
 ];
 

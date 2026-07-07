@@ -21,7 +21,7 @@ const galleryImages = [
     span: '',
   },
   {
-    src: 'https://images.unsplash.com/photo-1550966871-3ed3cdb51f3a?w=600&q=80',
+    src: '/images/wine-pairing.png',
     alt: 'Wine pairing experience',
     span: 'md:col-span-2',
   },

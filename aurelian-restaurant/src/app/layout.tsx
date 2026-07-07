@@ -35,9 +35,6 @@ export const metadata: Metadata = {
     "gourmet food",
     "premium dining experience",
   ],
-  icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
-  },
   openGraph: {
     title: "Aurelian | Fine Dining Experience",
     description: "A dining experience beyond taste. Discover exceptional cuisine crafted with passion and precision.",
